@@ -9,6 +9,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
@@ -55,16 +56,37 @@ public class RestauranteRepositoryImpl implements RestauranteRepositoryQueries {
 	}
 
 //	public List<Restaurante> findWithCriteria(String nome,
-//								  BigDecimal taxaFreteInicial, BigDecimal taxaFreteFinal){
-//		var criteriaBuilder = manager.getCriteriaBuilder();
-//
-//		CriteriaQuery<Restaurante> criteria = criteriaBuilder.createQuery(Restaurante.class);
-//
-//		criteria.from(Restaurante.class);
-//
-//		TypedQuery<Restaurante> query = manager.createQuery(criteria);
-//
-//		return query.getResultList();
+////								  BigDecimal taxaFreteInicial, BigDecimal taxaFreteFinal){
+////		var criteriaBuilder = manager.getCriteriaBuilder();
+////
+////		CriteriaQuery<Restaurante> criteria = criteriaBuilder.createQuery(Restaurante.class);
+////
+////		criteria.from(Restaurante.class);
+////
+////		TypedQuery<Restaurante> query = manager.createQuery(criteria);
+////
+////		return query.getResultList();
+
+//	}
+		public List<Restaurante> findWithCriteria(String nome,
+								  BigDecimal taxaFreteInicial, BigDecimal taxaFreteFinal){
+		var criteriaBuilder = manager.getCriteriaBuilder();
+
+		CriteriaQuery<Restaurante> criteria = criteriaBuilder.createQuery(Restaurante.class);
+
+		var  root = criteria.from(Restaurante.class);
+
+		Predicate nomePredicate = criteriaBuilder.like(root.get("nome"), "%" + nome + "%");
+
+		Predicate taxaInicialPredicate = criteriaBuilder.greaterThanOrEqualTo(root.get("taxaFrete"),taxaFreteInicial);
+
+		Predicate taxaFinalPredicate = criteriaBuilder.lessThanOrEqualTo(root.get("taxaFrete"),taxaFreteFinal);
+
+		criteria.where(nomePredicate,taxaInicialPredicate,taxaFinalPredicate);
+
+		TypedQuery<Restaurante> query = manager.createQuery(criteria);
+
+		return query.getResultList();
 
 	}
 

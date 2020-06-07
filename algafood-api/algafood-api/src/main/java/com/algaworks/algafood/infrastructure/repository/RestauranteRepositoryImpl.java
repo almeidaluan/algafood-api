@@ -91,32 +91,32 @@ public class RestauranteRepositoryImpl implements RestauranteRepositoryQueries {
 //
 //	}
 
-	public List<Restaurante> findWithCriteriaWhere(String nome,
-								  BigDecimal taxaFreteInicial, BigDecimal taxaFreteFinal){
-		var criteriaBuilder = manager.getCriteriaBuilder();
+//	public List<Restaurante> findWithCriteriaWhere(String nome,
+//								  BigDecimal taxaFreteInicial, BigDecimal taxaFreteFinal){
+//		var criteriaBuilder = manager.getCriteriaBuilder();
+//
+//		CriteriaQuery<Restaurante> criteria = criteriaBuilder.createQuery(Restaurante.class);
+//
+//		var  root = criteria.from(Restaurante.class);
+//
+//		var predicates = new ArrayList<Predicate>();
+//
+//		if(StringUtils.hasLength(nome)){
+//			predicates.add(criteriaBuilder.like(root.get("nome"), "%" + nome + "%"));
+//		}
+//		if(taxaFreteInicial != null){
+//			predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("taxaFrete"),taxaFreteInicial););
+//		}
+//		if(taxaFreteFinal != null){
+//			predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("taxaFrete"),taxaFreteFinal));
+//		}
+//
+//		criteria.where(predicates.toArray( new Predicate[0]));
+//
+//		TypedQuery<Restaurante> query = manager.createQuery(criteria);
+//
+//		return query.getResultList();
 
-		CriteriaQuery<Restaurante> criteria = criteriaBuilder.createQuery(Restaurante.class);
-
-		var  root = criteria.from(Restaurante.class);
-
-		var predicates = new ArrayList<Predicate>();
-
-		if(StringUtils.hasLength(nome)){
-			predicates.add(criteriaBuilder.like(root.get("nome"), "%" + nome + "%"));
-		}
-		if(taxaFreteInicial != null){
-			predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("taxaFrete"),taxaFreteInicial););
-		}
-		if(taxaFreteFinal != null){
-			predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("taxaFrete"),taxaFreteFinal));
-		}
-
-		criteria.where(predicates.toArray( new Predicate[0]));
-
-		TypedQuery<Restaurante> query = manager.createQuery(criteria);
-
-		return query.getResultList();
-
-	}
+//	}
 
 }
